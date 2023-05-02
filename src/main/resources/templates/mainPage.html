@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Main Page</title>
+</head>
+<body>
+
+    <p>Загрузите свой файл до 128 Мегабайт!</p>
+    <form method="POST" enctype="multipart/form-data"
+          action="/home/upload">
+        File to upload: <input type="file" name="file"><br/>
+        <input type="submit" value="Upload"> Press here to upload the file!
+    </form>
+
+
+</body>
+</html>
