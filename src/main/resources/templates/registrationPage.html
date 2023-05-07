@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+</head>
+<body>
+
+
+<div class="wrapper">
+  <main class="page">
+    <div class="page__form">
+      <h1 class="form__title">Регистрация пользователя</h1>
+      <form class="form__fields" method="POST" th:action="@{/registration}" th:object="${registrationForm}" id="registrationForm" enctype="multipart/form-data">
+
+        <div class="form__field">
+                    <span class="validationError"
+                          th:if="${#fields.hasErrors('login')}"
+                          th:errors="*{login}">Login Error</span>
+          <label for="login">Login: </label>
+          <input type="text" th:field="*{login}" id="login" /><br/>
+        </div>
+
+        <div class="form__field">
+                    <span class="validationError"
+                          th:if="${#fields.hasErrors('password')}"
+                          th:errors="*{password}">Password Error</span>
+          <label for="password">Пароль: </label>
+          <input type="password" th:field="*{password}" id="password" /><br/>
+        </div>
+
+        <div class="form__field">
+                    <span class="validationError"
+                          th:if="${#fields.hasErrors('confirmPassword')}"
+                          th:errors="*{confirmPassword}">ConfirmPassword Error</span>
+          <label for="confirmPassword">Повторите пароль: </label>
+          <input type="password" th:field="*{confirmPassword}" id="confirmPassword" /><br/>
+        </div>
+
+
+
+        <br/>
+        <div class="form__buttons">
+          <div class="form__button-input">
+            <input type="submit" value="Регистрация">
+          </div>
+        </div>
+
+
+      </form>
+    </div>
+  </main>
+</div>
+
+
+</body>
+</html>

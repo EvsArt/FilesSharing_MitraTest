@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+
+
+<div class="wrapper">
+  <main class="page">
+    <div class="page__form">
+      <h1 class="form__title">Вход</h1>
+      <form class="form__fields" method="POST" th:action="@{/login}" id="loginForm" enctype="multipart/form-data">
+
+        <div class="form__field">
+          <label for="username">Никнейм: </label>
+          <input type="text" name="username" id="username" /><br/>
+        </div>
+
+        <div class="form__field">
+          <label for="password">Пароль: </label>
+          <input type="password" name="password" id="password" /><br/>
+        </div>
+
+        <span class="validationError"
+              th:if="${error}">Неверный логин или пароль!</span>
+
+        <br/>
+        <div class="form__buttons">
+          <div class="form__button-input">
+            <input type="submit" value="Вход">
+          </div>
+        </div>
+
+        <p>Ещё не зарегестрированы?</p>
+        <a href="/registration">Регистрация</a>
+
+
+      </form>
+    </div>
+  </main>
+</div>
+
+
+</body>
+</html>

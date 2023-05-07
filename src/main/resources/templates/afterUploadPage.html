@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Upload</title>
+</head>
+<body>
+
+<div>
+  <p th:text="${message}"></p>
+  <div th:if="${link != null}">
+    <p>Ссылка на загруженный файл: </p>
+    <a th:href="${'/file/' + link}" th:text="${hostName + '/file/' + link}"></a>
+    <a href="/home">Вернуться на главную</a>
+  </div>
+</div>
+
+</body>
+</html>

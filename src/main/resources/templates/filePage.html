@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>File Page</title>
+</head>
+<body>
+
+  <div th:if="${fileIsExist}">
+    <p th:text="${'Имя файла: ' + file.getName()}"></p>
+    <p th:text="${'Размер файла: ' + file.getSize() + ' байт'}"></p>
+    <p th:text="${'Пользователь, добавивший файл: ' + file.getUser().getLogin()}"></p>
+    <p th:text="${'Файл был добавлен ' + file.creationDate}"></p>
+    <a th:href="${id + '/download'}">Скачать файл</a>
+    <a th:if="${isOwner}" th:href="${id + '/delete'}">Удалить файл</a>
+  </div>
+  <p th:if="${!fileIsExist}">
+    Файла не существует(
+  </p>
+
+</body>
+</html>

@@ -15,6 +15,18 @@
         <input type="submit" value="Upload"> Press here to upload the file!
     </form>
 
+    <p th:if="${files.size() != 0}">Ваши загруженные файлы:</p>
+    <div th:each="file: ${files}">
+        <p th:text="${file.getName()}"></p>
+        <a th:text="${hostName + '/file/' + file.getId() + '_' + file.getLink()}" th:href="${'/file/' + file.getId() + '_' + file.getLink()}"></a><br>
+        <hr/>
+    </div>
+
+    <a th:if="${isAdmin}" href="/home/showall">Показать все загруженные файлы</a>
+
+    <a href="/logout">Выйти</a>
+
+
 
 </body>
 </html>

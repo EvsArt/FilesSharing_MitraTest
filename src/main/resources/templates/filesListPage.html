@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Files List Page</title>
+</head>
+<body>
+
+  <div th:each="file: ${files}">
+    <p th:text="${file.getName()}"></p>
+    <a th:text="${hostName + '/file/' + file.getId() + '_' + file.getLink()}" th:href="${'/file/' + file.getId() + '_' + file.getLink()}"></a><br>
+    <hr/>
+  </div>
+  <a href="/home">На главную</a>
+</body>
+</html>
