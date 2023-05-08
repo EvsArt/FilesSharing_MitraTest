@@ -13,8 +13,9 @@
     <p th:text="${'Размер файла: ' + file.getSize() + ' байт'}"></p>
     <p th:text="${'Пользователь, добавивший файл: ' + file.getUser().getLogin()}"></p>
     <p th:text="${'Файл был добавлен ' + file.creationDate}"></p>
-    <a th:href="${id + '/download'}">Скачать файл</a>
-    <a th:if="${isOwner}" th:href="${id + '/delete'}">Удалить файл</a>
+    <a th:href="${id + '/download'}">Скачать файл</a><br/>
+    <a th:if="${isOwner}" th:href="${id + '/delete'}">Удалить файл</a><br/><br/>
+    <a href="/home">На главную</a>
   </div>
   <p th:if="${!fileIsExist}">
     Файла не существует(

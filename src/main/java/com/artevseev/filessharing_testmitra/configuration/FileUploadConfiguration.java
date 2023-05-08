@@ -1,13 +1,11 @@
 package com.artevseev.filessharing_testmitra.configuration;
 
+import jakarta.servlet.MultipartConfigElement;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-
-import jakarta.servlet.MultipartConfigElement;
 import org.springframework.util.unit.DataSize;
 
 @Configuration

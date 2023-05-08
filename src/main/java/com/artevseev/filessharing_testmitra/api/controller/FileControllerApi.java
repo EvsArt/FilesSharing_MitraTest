@@ -1,11 +1,10 @@
 package com.artevseev.filessharing_testmitra.api.controller;
 
-import com.artevseev.filessharing_testmitra.DataManager;
 import com.artevseev.filessharing_testmitra.api.model.FileForApi;
 import com.artevseev.filessharing_testmitra.api.model.SmallFile;
+import com.artevseev.filessharing_testmitra.configuration.DataManager;
 import com.artevseev.filessharing_testmitra.web.data.model.UploadedFile;
 import com.artevseev.filessharing_testmitra.web.data.model.User;
-import com.artevseev.filessharing_testmitra.web.data.repository.RoleRepository;
 import com.artevseev.filessharing_testmitra.web.data.repository.UploadedFileRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,15 +31,12 @@ public class FileControllerApi {
     private String hostName;
 
     private final UploadedFileRepository uploadedFileRepository;
-    private final RoleRepository roleRepository;
     private final DataManager dataManager;
 
     @Autowired
     public FileControllerApi(UploadedFileRepository uploadedFileRepository,
-                             RoleRepository roleRepository,
                              DataManager dataManager) {
         this.uploadedFileRepository = uploadedFileRepository;
-        this.roleRepository = roleRepository;
         this.dataManager = dataManager;
     }
     @GetMapping
@@ -65,7 +61,7 @@ public class FileControllerApi {
                 log.info("The file {} was saved by {} by API", result.getFileName(), user.getLogin());
                 return result;
             } catch (IOException e) {
-                log.error("Error with saving file by API!");
+                log.error("Error with saving file by API: {}", e.getMessage());
             }
         return null;
     }

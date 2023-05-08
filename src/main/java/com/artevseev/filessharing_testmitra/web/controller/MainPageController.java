@@ -1,15 +1,12 @@
 package com.artevseev.filessharing_testmitra.web.controller;
 
-import com.artevseev.filessharing_testmitra.DataManager;
+import com.artevseev.filessharing_testmitra.configuration.DataManager;
 import com.artevseev.filessharing_testmitra.web.data.model.UploadedFile;
 import com.artevseev.filessharing_testmitra.web.data.model.User;
 import com.artevseev.filessharing_testmitra.web.data.repository.RoleRepository;
 import com.artevseev.filessharing_testmitra.web.data.repository.UploadedFileRepository;
-import lombok.extern.log4j.Log4j;
-import lombok.extern.log4j.Log4j2;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -2,11 +2,9 @@ package com.artevseev.filessharing_testmitra.configuration;
 
 import com.artevseev.filessharing_testmitra.web.data.model.User;
 import com.artevseev.filessharing_testmitra.web.data.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;

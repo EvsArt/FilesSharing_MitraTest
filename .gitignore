@@ -32,3 +32,4 @@ build/
 ### VS Code ###
 .vscode/
 /src/main/resources/app.log
+/src/main/resources/static/uploadFiles/

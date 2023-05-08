@@ -1,6 +1,6 @@
 package com.artevseev.filessharing_testmitra.web.controller;
 
-import com.artevseev.filessharing_testmitra.DataManager;
+import com.artevseev.filessharing_testmitra.configuration.DataManager;
 import com.artevseev.filessharing_testmitra.web.data.model.UploadedFile;
 import com.artevseev.filessharing_testmitra.web.data.model.User;
 import com.artevseev.filessharing_testmitra.web.data.repository.RoleRepository;
@@ -11,10 +11,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Optional;
 
 @Controller

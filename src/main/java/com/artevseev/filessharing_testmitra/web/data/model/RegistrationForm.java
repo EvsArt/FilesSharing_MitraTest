@@ -1,7 +1,6 @@
 package com.artevseev.filessharing_testmitra.web.data.model;
 
 import com.artevseev.filessharing_testmitra.web.data.repository.RoleRepository;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import org.springframework.security.crypto.password.PasswordEncoder;

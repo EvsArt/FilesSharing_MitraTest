@@ -1,14 +1,10 @@
 package com.artevseev.filessharing_testmitra.api.model;
 
-import ch.qos.logback.core.encoder.ByteArrayUtil;
 import com.artevseev.filessharing_testmitra.web.data.model.UploadedFile;
 import com.artevseev.filessharing_testmitra.web.data.model.User;
-import com.fasterxml.jackson.databind.ser.std.ByteArraySerializer;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.dialect.SybaseDialect;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.io.*;
 import java.util.Date;
@@ -20,7 +16,7 @@ public class FileForApi {
 
     String fileName;
 
-    String link;
+    String link;    // Normal link to the file
 
     byte[] file;
 

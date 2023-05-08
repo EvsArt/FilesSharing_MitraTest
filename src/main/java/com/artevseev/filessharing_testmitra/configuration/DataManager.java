@@ -1,14 +1,12 @@
-package com.artevseev.filessharing_testmitra;
+package com.artevseev.filessharing_testmitra.configuration;
 
 import com.artevseev.filessharing_testmitra.web.data.model.UploadedFile;
 import com.artevseev.filessharing_testmitra.web.data.model.User;
 import com.artevseev.filessharing_testmitra.web.data.repository.RoleRepository;
 import com.artevseev.filessharing_testmitra.web.data.repository.UploadedFileRepository;
-import com.artevseev.filessharing_testmitra.web.data.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -19,10 +17,6 @@ public class DataManager {
 
     @Value("${upload.path}")
     private String path;
-
-    @Value("${host.name}")
-    private String hostName;
-
 
     private final UploadedFileRepository uploadedFileRepository;
     private final RoleRepository roleRepository;
@@ -35,7 +29,6 @@ public class DataManager {
 
     @Transactional
     public UploadedFile saveFile(UploadedFile file) throws IOException {
-
         file.writeFile(path, uploadedFileRepository);
         return uploadedFileRepository.save(file);
     }
