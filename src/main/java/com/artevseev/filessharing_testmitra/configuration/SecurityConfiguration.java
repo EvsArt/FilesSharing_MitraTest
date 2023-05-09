@@ -46,12 +46,13 @@ public class SecurityConfiguration{
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http.authorizeHttpRequests()
                 .requestMatchers(HttpMethod.GET, "/api/file").hasRole("ADMIN")  // Viewing files
-                .requestMatchers(HttpMethod.POST, "api/file/**").hasAnyRole("USER", "ADMIN")    // Saving files
-                .requestMatchers(HttpMethod.DELETE, "api/file/**").hasAnyRole("USER", "ADMIN")
+                .requestMatchers(HttpMethod.POST, "/api/file/**").hasAnyRole("USER", "ADMIN")    // Saving files
+                .requestMatchers(HttpMethod.DELETE, "/api/file/**").hasAnyRole("USER", "ADMIN")
+                .requestMatchers(HttpMethod.GET, "/api/file/**").permitAll()    // Access to file by link
+                .requestMatchers("/file/**").permitAll()  // Access to file by link
                 .requestMatchers("/home/showall").hasRole("ADMIN")
                 .requestMatchers("/registration").permitAll()
                 .requestMatchers("/login").permitAll()
-                .requestMatchers("/api/**").permitAll()
                 .requestMatchers("/**").hasAnyRole("USER", "ADMIN")
                 .and()
                 .formLogin().loginPage("/login").defaultSuccessUrl("/home", true)

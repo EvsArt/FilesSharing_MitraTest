@@ -44,6 +44,7 @@ public class FileController {
     public String getFile(@PathVariable String id,
                           Model model,
                           @AuthenticationPrincipal User user){
+
         model.addAttribute("fileIsExist", false);
         long fileId = Integer.parseInt(id.split("_")[0]);
         int link = Integer.parseInt(id.split("_")[1]);
@@ -51,8 +52,10 @@ public class FileController {
         if(file.isPresent() && file.get().getLink() == link){
             model.addAttribute("fileIsExist", true);
             model.addAttribute("file", file.get());
-            model.addAttribute("isOwner", file.get().getUser().equals(user) ||
-                    user.getRole().equals(roleRepository.findRoleByName("ADMIN")));
+            model.addAttribute("isOwner", user != null && (file.get().getUser().equals(user) ||
+                    user.getRole().equals(roleRepository.findRoleByName("ADMIN"))));
+        }else {
+            log.warn("There was an attempt to get file with wrong link by {}", user.getLogin());
         }
 
         return "filePage";

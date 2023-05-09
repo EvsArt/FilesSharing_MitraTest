@@ -61,8 +61,8 @@ public class MainPageController {
         if (!file.isEmpty()) {
             UploadedFile uploadedFile = new UploadedFile(file, user);
             try {
-                dataManager.saveFile(uploadedFile);
-                log.info("The file {} was saved by {} by browser", uploadedFile.getFile(), user.getLogin());
+                UploadedFile savedFile = dataManager.saveFile(uploadedFile);
+                log.info("The file {} was saved by {} in browser", savedFile.getName(), user.getLogin());
             } catch (IOException e) {
                 model.addAttribute("message", "Возникла внутренняя ошибка на сервере! Мы уже пытаемся её устранить!");
             }
