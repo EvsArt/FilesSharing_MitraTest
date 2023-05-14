@@ -2,13 +2,14 @@ package com.artevseev.filessharing_testmitra.api.controller;
 
 import com.artevseev.filessharing_testmitra.api.model.FileForApi;
 import com.artevseev.filessharing_testmitra.api.model.SmallFile;
+import com.artevseev.filessharing_testmitra.api.service.FileForApiService;
 import com.artevseev.filessharing_testmitra.configuration.DataManager;
 import com.artevseev.filessharing_testmitra.web.data.model.UploadedFile;
 import com.artevseev.filessharing_testmitra.web.data.model.User;
 import com.artevseev.filessharing_testmitra.web.data.repository.UploadedFileRepository;
+import com.artevseev.filessharing_testmitra.web.data.service.UploadedFileService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -24,30 +25,30 @@ import java.util.Optional;
 // String id is id_link(from table)
 public class FileControllerApi {
 
-    @Value("${upload.path}")
-    private String path;
-
-    @Value("${host.name}")
-    private String hostName;
-
     private final UploadedFileRepository uploadedFileRepository;
     private final DataManager dataManager;
+    private final UploadedFileService uploadedFileService;
+    private final FileForApiService fileForApiService;
 
     @Autowired
     public FileControllerApi(UploadedFileRepository uploadedFileRepository,
-                             DataManager dataManager) {
+                             DataManager dataManager,
+                             UploadedFileService uploadedFileService, FileForApiService fileForApiService) {
         this.uploadedFileRepository = uploadedFileRepository;
         this.dataManager = dataManager;
+        this.uploadedFileService = uploadedFileService;
+        this.fileForApiService = fileForApiService;
     }
+
     @GetMapping
     public Iterable<SmallFile> allFiles(@AuthenticationPrincipal User user) {
         log.info("Reading all files by API by {}", user.getLogin());
-        return uploadedFileRepository.findAll().stream().map((x) -> x.toSmallFile(hostName)).toList();
+        return uploadedFileRepository.findAll().stream().map(uploadedFileService::toSmallFile).toList();
     }
 
     @GetMapping("/{id}")
-    public FileForApi getFile(@PathVariable String id){
-        return uploadedFileRepository.findById(Long.parseLong(id.split("_")[0])).map((x) -> x.toFileForApi(path, hostName)).orElse(null);
+    public FileForApi getFile(@PathVariable String id) {
+        return uploadedFileRepository.findById(Long.parseLong(id.split("_")[0])).map(uploadedFileService::toFileForApi).orElse(null);
     }
 
 
@@ -55,9 +56,9 @@ public class FileControllerApi {
     @ResponseStatus(HttpStatus.CREATED)
     public FileForApi saveFile(@ModelAttribute FileForApi file,
                                @AuthenticationPrincipal User user) {
-        if(file != null)
+        if (file != null)
             try {
-                FileForApi result = dataManager.saveFile(file.toUploadedFile(user)).toFileForApi(path, hostName);
+                FileForApi result = uploadedFileService.toFileForApi(dataManager.saveFile(fileForApiService.toUploadedFile(file, user)));
                 log.info("The file {} was saved by {} by API", result.getFileName(), user.getLogin());
                 return result;
             } catch (IOException e) {
@@ -73,7 +74,7 @@ public class FileControllerApi {
 
         Optional<UploadedFile> uploadedFile = uploadedFileRepository.findById(Long.parseLong(id.split("_")[0]));
         uploadedFile.ifPresent(file -> {
-            if (dataManager.deleteFile(id, uploadedFile.get(), user))
+            if (dataManager.deleteFile(id, user))
                 log.info("The file {} was deleted by {} by API", uploadedFile.get().getName(), user.getLogin());
         });
 

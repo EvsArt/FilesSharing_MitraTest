@@ -14,13 +14,13 @@ import java.util.Map;
 public class LoginController {
 
     @ModelAttribute("error")
-    public boolean wrongPassword(){
+    public boolean wrongPassword() {
         return false;
     }
 
     @GetMapping
     public String loginPage(Model model, @RequestParam Map<String, String> params) {
-        if(params.containsKey("error")){
+        if (params.containsKey("error")) {
             model.addAttribute("error", true);
         }
         return "loginPage";

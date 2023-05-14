@@ -10,8 +10,12 @@ import java.util.List;
 @Repository
 public interface UploadedFileRepository extends CrudRepository<UploadedFile, Long> {
     UploadedFile findByName(String name);
+
     List<UploadedFile> findAllByUser(User user);
+
     List<UploadedFile> findAllByOrderByName();
+
     boolean existsByName(String name);
+
     List<UploadedFile> findAll();
 }

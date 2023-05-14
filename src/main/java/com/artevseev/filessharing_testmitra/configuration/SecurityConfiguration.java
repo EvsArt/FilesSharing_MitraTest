@@ -19,7 +19,7 @@ import java.util.Optional;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
-public class SecurityConfiguration{
+public class SecurityConfiguration {
 
     final UserRepository userRepository;
 
@@ -28,15 +28,15 @@ public class SecurityConfiguration{
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public UserDetailsService userDetailsService(UserRepository userRepo){
+    public UserDetailsService userDetailsService(UserRepository userRepo) {
         return username -> {
             Optional<User> user = userRepo.findByLogin(username);
-            if(user.isPresent()) return user.get();
+            if (user.isPresent()) return user.get();
             throw new UsernameNotFoundException("User " + username + " not found!");
         };
     }

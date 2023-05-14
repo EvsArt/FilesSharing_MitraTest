@@ -29,30 +29,30 @@ public class RegistrationController {
 
     RegistrationController(UserRepository userRepository,
                            RoleRepository roleRepository,
-                           PasswordEncoder passwordEncoder){
+                           PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping
-    public String getRegPage(Model model){
+    public String getRegPage(Model model) {
         model.addAttribute("registrationForm", new RegistrationForm());
         return "registrationPage";
     }
 
     @PostMapping
     public String processRegistration(@ModelAttribute("registrationForm") @Valid RegistrationForm form,
-                                      Errors errors, SessionStatus sessionStatus){
+                                      Errors errors, SessionStatus sessionStatus) {
 
         Optional<User> userOptional = userRepository.findByLogin(form.getLogin());
-        if(userOptional.isPresent()){
+        if (userOptional.isPresent()) {
             errors.rejectValue("login", "loginIsProhibited", "Данное имя пользователя уже занято!");
         }
-        if(!form.getPassword().equals(form.getConfirmPassword())) {
-            errors.rejectValue("confirmPassword","confirmPassword", "Пароли не совпадают!");
+        if (!form.getPassword().equals(form.getConfirmPassword())) {
+            errors.rejectValue("confirmPassword", "confirmPassword", "Пароли не совпадают!");
         }
-        if (errors.hasErrors()){
+        if (errors.hasErrors()) {
             return "registrationPage";
         }
         User user = form.toUser(roleRepository, passwordEncoder);

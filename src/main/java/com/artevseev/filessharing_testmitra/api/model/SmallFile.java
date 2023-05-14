@@ -13,7 +13,7 @@ public class SmallFile {
     public SmallFile(String hostName, UploadedFile uploadedFile) {
 
         fileName = uploadedFile.getName();
-        link =  hostName + "/api/file/" + uploadedFile.getId() + "_" + uploadedFile.getLink();
+        link = hostName + "/api/file/" + uploadedFile.getId() + "_" + uploadedFile.getLink();
 
     }
 

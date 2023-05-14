@@ -25,7 +25,7 @@ public class MainPageController {
     private final RoleRepository roleRepository;
     private final DataManager dataManager;
 
-    public MainPageController(UploadedFileRepository uploadedFileRepository, RoleRepository roleRepository, DataManager dataManager){
+    public MainPageController(UploadedFileRepository uploadedFileRepository, RoleRepository roleRepository, DataManager dataManager) {
         this.uploadedFileRepository = uploadedFileRepository;
         this.roleRepository = roleRepository;
         this.dataManager = dataManager;
@@ -38,14 +38,14 @@ public class MainPageController {
     private String hostName;
 
     @ModelAttribute("hostName")
-    public String getHostName(){
+    public String getHostName() {
         return hostName;
     }
 
 
     @GetMapping
     public String getPage(@AuthenticationPrincipal User user,
-                          Model model){
+                          Model model) {
         List<UploadedFile> files = uploadedFileRepository.findAllByUser(user);
         model.addAttribute("files", files);
         model.addAttribute("isAdmin", user.getRole().equals(roleRepository.findRoleByName("ADMIN")));
@@ -53,9 +53,9 @@ public class MainPageController {
     }
 
     @PostMapping("/upload")
-    public String uploadFile(@RequestParam("file")MultipartFile file,
+    public String uploadFile(@RequestParam("file") MultipartFile file,
                              @AuthenticationPrincipal User user,
-                             Model model){
+                             Model model) {
 
 
         if (!file.isEmpty()) {
@@ -70,8 +70,7 @@ public class MainPageController {
             model.addAttribute("message", "Файл " + uploadedFile.getName() + " успешно загружен на сервер!");
             uploadedFile = uploadedFileRepository.findByName(uploadedFile.getName());
             model.addAttribute("link", uploadedFile.getId() + "_" + uploadedFile.getLink());
-        }
-        else {
+        } else {
             model.addAttribute("message", "Не удалось загрузить " + file.getOriginalFilename() + " потому что файл пустой.");
         }
 
@@ -80,7 +79,7 @@ public class MainPageController {
     }
 
     @GetMapping("/showall")
-    public String showAll(Model model, @AuthenticationPrincipal User user){
+    public String showAll(Model model, @AuthenticationPrincipal User user) {
         model.addAttribute("files", uploadedFileRepository.findAllByOrderByName());
         log.info("All files have been viewed by {}", user.getLogin());
         return "filesListPage";

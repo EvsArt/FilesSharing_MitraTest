@@ -8,10 +8,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.Properties;
-
 @Configuration
-public class StartData implements CommandLineRunner{
+public class StartData implements CommandLineRunner {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
@@ -19,41 +17,41 @@ public class StartData implements CommandLineRunner{
 
     public StartData(UserRepository userRepository,
                      RoleRepository roleRepository,
-                     PasswordEncoder passwordEncoder){
+                     PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
     @Override
-    public void run(String... args){
+    public void run(String... args) {
 
-        if(!roleRepository.existsByName("USER")){
+        if (!roleRepository.existsByName("USER")) {
             Role role = new Role();
             role.setName("USER");
             roleRepository.save(role);
         }
-        if(!roleRepository.existsByName("ADMIN")){
+        if (!roleRepository.existsByName("ADMIN")) {
             Role role = new Role();
             role.setName("ADMIN");
             roleRepository.save(role);
         }
 
-        if(!userRepository.existsByLogin("user1")){
+        if (!userRepository.existsByLogin("user1")) {
             User user = new User();
             user.setRole(roleRepository.findRoleByName("USER"));
             user.setLogin("user1");
             user.setPassword(passwordEncoder.encode("12345678"));
             userRepository.save(user);
         }
-        if(!userRepository.existsByLogin("user2")){
+        if (!userRepository.existsByLogin("user2")) {
             User user = new User();
             user.setRole(roleRepository.findRoleByName("USER"));
             user.setLogin("user2");
             user.setPassword(passwordEncoder.encode("12345678"));
             userRepository.save(user);
         }
-        if(!userRepository.existsByLogin("admin")){
+        if (!userRepository.existsByLogin("admin")) {
             User user = new User();
             user.setRole(roleRepository.findRoleByName("ADMIN"));
             user.setLogin("admin");

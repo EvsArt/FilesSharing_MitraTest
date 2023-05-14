@@ -4,6 +4,7 @@ import com.artevseev.filessharing_testmitra.web.data.model.UploadedFile;
 import com.artevseev.filessharing_testmitra.web.data.model.User;
 import com.artevseev.filessharing_testmitra.web.data.repository.RoleRepository;
 import com.artevseev.filessharing_testmitra.web.data.repository.UploadedFileRepository;
+import com.artevseev.filessharing_testmitra.web.data.service.UploadedFileService;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,22 +21,24 @@ public class DataManager {
 
     private final UploadedFileRepository uploadedFileRepository;
     private final RoleRepository roleRepository;
+    private final UploadedFileService uploadedFileService;
 
     public DataManager(UploadedFileRepository uploadedFileRepository,
-                       RoleRepository roleRepository) {
+                       RoleRepository roleRepository, UploadedFileService uploadedFileService) {
         this.roleRepository = roleRepository;
         this.uploadedFileRepository = uploadedFileRepository;
+        this.uploadedFileService = uploadedFileService;
     }
 
     @Transactional
     public UploadedFile saveFile(UploadedFile file) throws IOException {
-        file.writeFile(path, uploadedFileRepository);
+        uploadedFileService.writeFile(file);
         return uploadedFileRepository.save(file);
     }
 
     @Transactional
-    public boolean deleteFile(String idFromLink, UploadedFile file, User user){
-        return file.deleteFile(path, idFromLink, user, uploadedFileRepository, roleRepository);
+    public boolean deleteFile(String idFromLink, User user) {
+        return uploadedFileService.deleteFile(idFromLink, user);
     }
 
 
